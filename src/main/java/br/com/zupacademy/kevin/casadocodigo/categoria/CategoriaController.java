@@ -1,4 +1,4 @@
-package br.com.zupacademy.kevin.casadocodigo.autor;
+package br.com.zupacademy.kevin.casadocodigo.categoria;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,25 +11,24 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/autores")
-public class AutorController {
+@RequestMapping("/categorias")
+public class CategoriaController {
 
     @PersistenceContext
     private EntityManager entityManager;
-
     @Autowired
-    private AutorValidator autorValidator;
+    private CategoriaValidator categoriaValidator;
 
     @InitBinder
     public void init(WebDataBinder binder){
-        binder.addValidators(autorValidator);
+        binder.addValidators(categoriaValidator);
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criar(@Valid @RequestBody AutorRequest autorRequest){
-        Autor autor = autorRequest.toModel();
-        entityManager.persist(autor);
+    public ResponseEntity<?> criar(@RequestBody @Valid CategoriaRequest categoriaRequest){
+        Categoria categoria = categoriaRequest.toModel();
+        entityManager.persist(categoria);
         return ResponseEntity.ok().build();
     }
 }

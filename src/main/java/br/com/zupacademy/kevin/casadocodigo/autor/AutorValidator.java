@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 import java.util.Optional;
 
 @Component
-public class ProibeEmailDuplicadoAutorValidator implements Validator {
+public class AutorValidator implements Validator {
 
     @Autowired
     private AutorRepository autorRepository;
@@ -22,15 +22,16 @@ public class ProibeEmailDuplicadoAutorValidator implements Validator {
 
     @Override
     public void validate(Object request, Errors errors) {
-        if(errors.hasErrors()){
-            return;
-        }
+       this.proibeEmailDuplicado(request, errors);
+    }
+
+    public void proibeEmailDuplicado(Object request, Errors errors){
         AutorRequest autorRequest = (AutorRequest) request;
         Optional<Autor> possivelAutor = autorRepository.findByEmail(autorRequest.getEmail());
 
         if(possivelAutor.isPresent()){
             errors.rejectValue("email", null, "Já existe um email igual cadastrado: "
-                + autorRequest.getEmail());
+                    + autorRequest.getEmail());
         }
     }
 }

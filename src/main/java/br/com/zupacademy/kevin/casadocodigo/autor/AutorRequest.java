@@ -20,6 +20,10 @@ public class AutorRequest {
         this.descricao = descricao;
     }
 
+    @Deprecated
+    public AutorRequest(){
+    }
+
     public String getNome() {
         return nome;
     }
