@@ -14,21 +14,14 @@ import javax.validation.Valid;
 @RequestMapping("/categorias")
 public class CategoriaController {
 
-    @PersistenceContext
-    private EntityManager entityManager;
     @Autowired
-    private CategoriaValidator categoriaValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(categoriaValidator);
-    }
+    private CategoriaRepository categoriaRepository;
 
     @PostMapping
     @Transactional
     public ResponseEntity<?> criar(@RequestBody @Valid CategoriaRequest categoriaRequest){
         Categoria categoria = categoriaRequest.toModel();
-        entityManager.persist(categoria);
+        categoriaRepository.save(categoria);
         return ResponseEntity.ok().build();
     }
 }

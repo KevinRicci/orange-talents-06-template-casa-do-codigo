@@ -14,22 +14,14 @@ import javax.validation.Valid;
 @RequestMapping("/autores")
 public class AutorController {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Autowired
-    private AutorValidator autorValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder){
-        binder.addValidators(autorValidator);
-    }
+    private AutorRepository autorRepository;
 
     @PostMapping
     @Transactional
     public ResponseEntity<?> criar(@Valid @RequestBody AutorRequest autorRequest){
         Autor autor = autorRequest.toModel();
-        entityManager.persist(autor);
+        autorRepository.save(autor);
         return ResponseEntity.ok().build();
     }
 }
