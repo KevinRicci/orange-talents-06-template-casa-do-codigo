@@ -1,4 +1,6 @@
-package br.com.zupacademy.kevin.casadocodigo.livro;
+package br.com.zupacademy.kevin.casadocodigo.livro.Responses;
+
+import br.com.zupacademy.kevin.casadocodigo.livro.Livro;
 
 public class ListarLivrosResponse {
 

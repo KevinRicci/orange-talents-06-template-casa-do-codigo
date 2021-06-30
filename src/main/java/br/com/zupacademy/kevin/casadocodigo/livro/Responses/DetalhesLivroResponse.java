@@ -1,79 +1,41 @@
-package br.com.zupacademy.kevin.casadocodigo.livro;
+package br.com.zupacademy.kevin.casadocodigo.livro.Responses;
 
 import br.com.zupacademy.kevin.casadocodigo.autor.Autor;
 import br.com.zupacademy.kevin.casadocodigo.categoria.Categoria;
+import br.com.zupacademy.kevin.casadocodigo.livro.Livro;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Entity
-public class Livro {
+public class DetalhesLivroResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
-    @NotBlank
     private String titulo;
-
-    @Column(nullable = false, length = 500)
-    @NotBlank
-    @Size(max = 500)
     private String resumo;
-
-    @Column(length = 9999)
-    @NotBlank
     private String sumario;
-
-    @Column(nullable = false)
-    @NotNull
-    @Min(20)
     private BigDecimal preco;
-
-    @Column(nullable = false)
-    @NotNull
-    @Min(100)
     private int numeroPaginas;
-
-    @Column(nullable = false, unique = true)
-    @NotBlank
     private String isbn;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataPublicacao;
-
-    @ManyToOne
     private Categoria categoria;
-
-    @ManyToOne
     private Autor autor;
 
-    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, int numeroPaginas, String isbn, LocalDate dataPublicacao, Categoria categoria, Autor autor) {
-        this.titulo = titulo;
-        this.resumo = resumo;
-        this.sumario = sumario;
-        this.preco = preco;
-        this.numeroPaginas = numeroPaginas;
-        this.isbn = isbn;
-        this.dataPublicacao = dataPublicacao;
-        this.categoria = categoria;
-        this.autor = autor;
-    }
-
-    @Deprecated
-    public Livro(){
-    }
-
-    public Long getId() {
-        return id;
+    public DetalhesLivroResponse(Livro livro) {
+        this.titulo = livro.getTitulo();
+        this.resumo = livro.getResumo();
+        this.sumario = livro.getSumario();
+        this.preco = livro.getPreco();
+        this.numeroPaginas = livro.getNumeroPaginas();
+        this.isbn = livro.getIsbn();
+        this.dataPublicacao = livro.getDataPublicacao();
+        this.categoria = livro.getCategoria();
+        this.autor = livro.getAutor();
     }
 
     public String getTitulo() {
