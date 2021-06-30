@@ -71,4 +71,12 @@ public class Livro {
     @Deprecated
     public Livro(){
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
 }
