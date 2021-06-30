@@ -5,18 +5,16 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 @Documented
-@Constraint(validatedBy = {UniqueValueValidator.class})
+@Constraint(validatedBy = {ExistsIdValidator.class})
 @Target(value = ElementType.FIELD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface UniqueValue {
+public @interface ExistsId {
 
-    String message() default "Já existe um valor igual cadastrado";
+    String message() default "Não foi encontrado o id";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    String fieldName();
 
     Class<?> domainClass();
 }

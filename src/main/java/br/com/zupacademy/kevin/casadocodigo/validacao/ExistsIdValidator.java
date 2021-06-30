@@ -9,25 +9,23 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
 
-public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Object> {
+public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> {
 
-    private String domainAttribute;
     private Class<?> klass;
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public void initialize(UniqueValue params) {
-        domainAttribute = params.fieldName();
-        klass = params.domainClass();
+    public void initialize(ExistsId params) {
+        this.klass = params.domainClass();
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
-        Query query = entityManager.createQuery("select 1 from "+klass.getName()+" where "+domainAttribute+"=:value");
+    public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
+        Query query = entityManager.createQuery("select 1 from "+klass.getName()+" where id =:value");
         query.setParameter("value", value);
         List<?> list = query.getResultList();
 
-        return list.isEmpty();
+        return !list.isEmpty();
     }
 }
