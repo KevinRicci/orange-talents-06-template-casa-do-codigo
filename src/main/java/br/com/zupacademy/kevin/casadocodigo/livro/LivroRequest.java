@@ -80,7 +80,6 @@ public class LivroRequest {
     }
 
     public Livro toModel(CategoriaRepository categoriaRepository, AutorRepository autorRepository){
-        System.out.println(this.idAutor +" "+ this.idCategoria);
         Optional<Categoria> categoria = categoriaRepository.findById(this.idCategoria);
         Optional<Autor> autor = autorRepository.findById(this.idAutor);
 
